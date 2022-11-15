@@ -1,11 +1,7 @@
 import { CommonProps, Component } from "../../riot/component";
+import { Div } from "../../riot/components/div";
 
-export type LayoutProps = CommonProps & { children: HTMLElement[] };
-export const Layout: Component<LayoutProps> = (props) => {
-  const layout = document.createElement("div");
-  layout.className = "layout";
-
-  props.children.forEach((c) => layout.appendChild(c));
-
-  return layout;
+export type LayoutProps = CommonProps;
+export const Layout: Component<LayoutProps> = (props, ...children) => {
+  return Div({ className: props.className ?? "layout" }, ...children);
 };

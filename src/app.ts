@@ -8,25 +8,18 @@ export type AppProps = {
 } & CommonProps;
 
 export const App: Component<AppProps> = (props) => {
-  const app = document.createElement("div");
-
   const store = props.store;
 
   const callbacks = {
     openDoor: store.get("doors").openDoor.bind(store.get("doors")),
   };
 
-  console.log("rendered");
-  console.log(store.getState().doors);
-  const layout = Layout({
-    children: store
+  return Layout(
+    {},
+    ...store
       .getState()
       .doors.items.map((item) =>
         Door({ ...item, openDoor: callbacks.openDoor })
-      ),
-  });
-
-  app.appendChild(layout);
-
-  return app;
+      )
+  );
 };
