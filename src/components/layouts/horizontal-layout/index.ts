@@ -1,18 +1,24 @@
 import { CommonProps, Component } from "../../../riot/component";
 import { Div } from "../../../riot/components/div";
-import { LayoutProps } from "../types";
+import { joinClasses } from "../../../utils/joinClasses";
 
-export type HorizontalLayoutProps = CommonProps & LayoutProps;
+export type HorizontalLayoutProps = CommonProps & {
+  theme?: "gapped-centered" | "gapped-centered-l" | "full";
+};
+
 export const HorizontalLayout: Component<HorizontalLayoutProps> = (
   props,
   ...children
 ) => {
-  const div = Div({ className: props.className ?? "Hlayout" }, ...children);
-  props.theme?.gap &&
-    props.theme.gapUnits &&
-    div.style.setProperty("--gap", `${props.theme.gap}${props.theme.gapUnits}`);
-  props.theme?.align && div.style.setProperty("--align", props.theme.align);
-  props.theme?.justify &&
-    div.style.setProperty("--justify", props.theme.justify);
+  const className = props.className ?? "Hlayout";
+  const div = Div(
+    {
+      className: joinClasses(
+        className,
+        props.theme ? `${className}_${props.theme}` : ""
+      ),
+    },
+    ...children
+  );
   return div;
 };

@@ -1,8 +1,9 @@
+import { Controls } from "./components/controls";
 import { Door } from "./components/door";
 import { HorizontalLayout } from "./components/layouts/horizontal-layout";
 import { VerticalLayout } from "./components/layouts/vertical-layout";
+import { NumberControl } from "./components/number-control";
 import { CommonProps, Component } from "./riot/component";
-import { Button } from "./riot/components/button";
 import { Store } from "./store";
 
 export type AppProps = {
@@ -14,25 +15,25 @@ export const App: Component<AppProps> = (props) => {
 
   const callbacks = {
     openDoor: store.get("doors").openDoor.bind(store.get("doors")),
-    addDoor: store.get("doors").setDoorsCount.bind(store.get("doors")),
+    setCount: store.get("doors").setDoorsCount.bind(store.get("doors")),
+  };
+
+  const select = {
+    items: store.getState().doors.items,
+    count: store.getState().doors.count,
   };
 
   return VerticalLayout(
     {},
     HorizontalLayout(
-      {},
-      ...store
-        .getState()
-        .doors.items.map((item) =>
-          Door({ ...item, openDoor: callbacks.openDoor })
-        )
+      { theme: "full" },
+      ...select.items.map((item) =>
+        Door({ ...item, openDoor: callbacks.openDoor })
+      )
     ),
-    HorizontalLayout(
-      { theme: { justify: "center" } },
-      Button({
-        text: "Добавить дверь",
-        onClick: () => callbacks.addDoor(store.getState().doors.count + 1),
-      })
-    )
+    Controls({
+      count: select.count,
+      setCount: callbacks.setCount,
+    })
   );
 };
