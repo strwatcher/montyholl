@@ -32,6 +32,6 @@ export const Controls: Component<ControlsProps> = (props) => {
       decrease: callbacks.decrease,
       value: props.count,
     }),
-    Button({ text: "Начать заново", onClick: callbacks.restart })
+    Button({ text: "Начать заново", onClick: callbacks.restart, theme: "big" })
   );
 };

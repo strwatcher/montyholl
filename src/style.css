@@ -53,3 +53,24 @@
 .Vlayout_gapped {
   gap: 20px;
 }
+
+.Button {
+  margin: 0;
+}
+
+.Button_big {
+  padding: 20px;
+  font-size: large;
+}
+
+.Label {
+  padding: 10px;
+}
+
+.Label_big {
+  font-size: large;
+}
+
+.Label_h {
+  font-size: xx-large;
+}

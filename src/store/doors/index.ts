@@ -5,6 +5,7 @@ export interface DoorsState {
   items: Door[];
   count: number;
   stage: "first" | "second" | "disabled";
+  prevDoor?: string;
 }
 
 export type Door = {
@@ -12,6 +13,11 @@ export type Door = {
   opened: boolean;
   content: "goat" | "car";
 };
+
+export interface GameInfo {
+  win: boolean;
+  change: boolean;
+}
 
 export class DoorsModule extends StoreModule<DoorsState> {
   initState(): DoorsState {
@@ -44,30 +50,46 @@ export class DoorsModule extends StoreModule<DoorsState> {
     });
   }
 
-  openDoor(id: string) {
+  openDoor(id: string): GameInfo | undefined {
+    const item = this.getState().items.find((i) => i.id === id);
+    if (item?.opened) {
+      return;
+    }
     const stage = this.getState().stage;
+
     switch (stage) {
       case "first":
         this.openExtraDoors(id);
-        break;
+        return;
       case "second":
-        this.openThisDoor(id);
-        break;
+        return this.openThisDoor(id);
       case "disabled":
         return;
     }
   }
 
-  openThisDoor(id: string) {
-    const items = this.getState().items.map((item) =>
-      item.id === id ? { ...item, opened: true } : item
-    );
+  openThisDoor(id: string): GameInfo {
+    const carDoor = this.getState().items.find((i) => i.content === "car")!.id;
+    const items = this.getState().items.map((item) => ({
+      ...item,
+      opened: true,
+    }));
+
+    const win = this.checkWin(id, carDoor);
 
     this.setState({
       ...this.getState(),
       items,
       stage: "disabled",
     });
+    return {
+      win,
+      change: this.getState().prevDoor !== id,
+    };
+  }
+
+  checkWin(id: string, carId: string) {
+    return id === carId;
   }
 
   openExtraDoors(id: string) {
@@ -85,6 +107,7 @@ export class DoorsModule extends StoreModule<DoorsState> {
       ...this.getState(),
       items: finalDoors,
       stage: "second",
+      prevDoor: id,
     });
   }
 }
