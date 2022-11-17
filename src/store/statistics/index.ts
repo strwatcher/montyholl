@@ -2,7 +2,9 @@ import { percent } from "../../utils/percent";
 import { GameInfo } from "../doors";
 import { StoreModule } from "../module";
 
-export interface StatisticsState {
+export type Modes = "3" | "4" | "5";
+
+export interface Statistics {
   games: number;
   wins: number;
   winsPercent: string;
@@ -26,9 +28,15 @@ export interface StatisticsState {
   notChangeLoosesPercent: string;
 }
 
+export interface StatisticsState {
+  data: {
+    [P in Modes]: Statistics
+  };
+}
+
 export class StatisticsModule extends StoreModule<StatisticsState> {
   initState(): StatisticsState {
-    return {
+    const defaultStatistics = {
       games: 0,
 
       wins: 0,
@@ -52,13 +60,21 @@ export class StatisticsModule extends StoreModule<StatisticsState> {
       notChangeLooses: 0,
       notChangeLoosesPercent: "0%",
     };
+    return {
+      data: {
+        "3": defaultStatistics,
+        "4": defaultStatistics,
+        "5": defaultStatistics,
+      },
+    };
   }
 
-  registerGame(info: GameInfo) {
-    const games = this.getState().games + 1;
-    const wins = this.getState().wins + +info.win;
-    const changeGames = this.getState().changeGames + +info.change;
-    const changeWins = this.getState().changeWins + +(info.change && info.win);
+  registerGame(info: GameInfo, mode: "3" | "4" | "5") {
+    const games = this.getState().data[mode].games + 1;
+    const wins = this.getState().data[mode].wins + +info.win;
+    const changeGames = this.getState().data[mode].changeGames + +info.change;
+    const changeWins =
+      this.getState().data[mode].changeWins + +(info.change && info.win);
 
     const winsPercent = percent(wins / games);
     const looses = games - wins;
@@ -74,23 +90,28 @@ export class StatisticsModule extends StoreModule<StatisticsState> {
     const notChangeLooses = looses - changeLooses;
     const notChangeLoosesPercent = percent(notChangeLooses / looses);
     this.setState({
-      games,
-      wins,
-      winsPercent,
-      looses,
-      loosesPercent,
-      changeGames,
-      changeGamesPercent,
-      notChangeGames,
-      notChangeGamesPercent,
-      changeWins,
-      changeWinsPercent,
-      notChangeWins,
-      notChangeWinsPercent,
-      changeLooses,
-      changeLoosesPercent,
-      notChangeLooses,
-      notChangeLoosesPercent,
+      data: {
+        ...this.getState().data,
+        [mode]: {
+          games,
+          wins,
+          winsPercent,
+          looses,
+          loosesPercent,
+          changeGames,
+          changeGamesPercent,
+          notChangeGames,
+          notChangeGamesPercent,
+          changeWins,
+          changeWinsPercent,
+          notChangeWins,
+          notChangeWinsPercent,
+          changeLooses,
+          changeLoosesPercent,
+          notChangeLooses,
+          notChangeLoosesPercent,
+        },
+      },
     });
   }
 }

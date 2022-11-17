@@ -1,11 +1,11 @@
 import { CommonProps, Component } from "../../riot/component";
-import { StatisticsState } from "../../store/statistics";
+import { Statistics as StatisticsModel } from "../../store/statistics";
 import { Label } from "../label";
 import { HorizontalLayout } from "../layouts/horizontal-layout";
 import { VerticalLayout } from "../layouts/vertical-layout";
 
 export type StatisticsProps = CommonProps & {
-  data: StatisticsState;
+  data: StatisticsModel;
 };
 
 export const Statistics: Component<StatisticsProps> = (props) => {
@@ -14,50 +14,50 @@ export const Statistics: Component<StatisticsProps> = (props) => {
     VerticalLayout(
       { theme: "column" },
 
-      Label({ text: `Количество игр: ${props.data.games}` }),
-      Label({ text: `Количество побед: ${props.data.wins}` }),
-      Label({ text: `Количество проигрышей: ${props.data.looses}` }),
+      Label({ text: `Количество игр: ${props.data.games}`, theme: "big" }),
+      Label({ text: `Количество побед: ${props.data.wins}`, theme: "big" }),
+      Label({ text: `Количество проигрышей: ${props.data.looses}`, theme: "big" }),
       Label({
-        text: `Процент выигрыша: ${props.data.winsPercent}`,
+        text: `Процент выигрыша: ${props.data.winsPercent}`, theme: "big",
       }),
       Label({
-        text: `Процент проигрыша: ${props.data.loosesPercent}`,
+        text: `Процент проигрыша: ${props.data.loosesPercent}`, theme: "big"
       })
     ),
     VerticalLayout(
       { theme: "column" },
-      Label({ text: `Игры со сменой двери: ${props.data.changeGames}` }),
-      Label({ text: `Игры без смены двери: ${props.data.notChangeGames}` }),
+      Label({ text: `Игры со сменой двери: ${props.data.changeGames}`, theme: "big" }),
+      Label({ text: `Игры без смены двери: ${props.data.notChangeGames}`, theme: "big" }),
       Label({
-        text: `Процент игр со сменой двери: ${props.data.changeGamesPercent}`,
+        text: `Процент игр со сменой двери: ${props.data.changeGamesPercent}`, theme: "big"
       }),
       Label({
-        text: `Процент игр без смены двери: ${props.data.notChangeGamesPercent}`,
+        text: `Процент игр без смены двери: ${props.data.notChangeGamesPercent}`, theme: "big"
       })
     ),
 
     VerticalLayout(
       { theme: "column" },
-      Label({ text: `Победы при смене двери: ${props.data.changeWins}` }),
-      Label({ text: `Победы без смены двери: ${props.data.notChangeWins}` }),
+      Label({ text: `Победы при смене двери: ${props.data.changeWins}`, theme: "big" }),
+      Label({ text: `Победы без смены двери: ${props.data.notChangeWins}`, theme: "big" }),
       Label({
-        text: `Процент побед при смене двери: ${props.data.changeWinsPercent}`,
+        text: `Процент побед при смене двери: ${props.data.changeWinsPercent}`, theme: "big"
       }),
       Label({
-        text: `Процент побед без смены двери: ${props.data.notChangeWinsPercent}`,
+        text: `Процент побед без смены двери: ${props.data.notChangeWinsPercent}`, theme: "big"
       })
     ),
     VerticalLayout(
       { theme: "column" },
-      Label({ text: `Проигрыши при смене двери: ${props.data.changeLooses}` }),
+      Label({ text: `Проигрыши при смене двери: ${props.data.changeLooses}`, theme: "big" }),
       Label({
-        text: `Проигрыши без смены двери: ${props.data.notChangeLooses}`,
+        text: `Проигрыши без смены двери: ${props.data.notChangeLooses}`, theme: "big"
       }),
       Label({
-        text: `Процент проигрышей при смене двери: ${props.data.changeLoosesPercent}`,
+        text: `Процент проигрышей при смене двери: ${props.data.changeLoosesPercent}`, theme: "big"
       }),
       Label({
-        text: `Процент проигрышей без смены двери: ${props.data.notChangeLoosesPercent}`,
+        text: `Процент проигрышей без смены двери: ${props.data.notChangeLoosesPercent}`, theme: "big"
       })
     )
   );

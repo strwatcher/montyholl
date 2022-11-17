@@ -6,6 +6,7 @@ import { VerticalLayout } from "./components/layouts/vertical-layout";
 import { Statistics } from "./components/statistics";
 import { CommonProps, Component } from "./riot/component";
 import { Store } from "./store";
+import { Modes as Mode } from "./store/statistics";
 
 export type AppProps = {
   store: Store;
@@ -19,7 +20,8 @@ export const App: Component<AppProps> = (props) => {
       const result = store.get("doors").openDoor.bind(store.get("doors"))(id);
       if (!!result) {
         store.get("statistics").registerGame.bind(store.get("statistics"))(
-          result
+          result,
+          select.count.toString() as Mode
         );
         console.log(store.getState().statistics);
         if (result.win) {
@@ -39,7 +41,7 @@ export const App: Component<AppProps> = (props) => {
     items: store.getState().doors.items,
     count: store.getState().doors.count,
     status: store.getState().status.message,
-    statistics: store.getState().statistics,
+    statistics: store.getState().statistics.data,
   };
 
   return VerticalLayout(
@@ -47,7 +49,11 @@ export const App: Component<AppProps> = (props) => {
     HorizontalLayout(
       { theme: "full" },
       ...select.items.map((item) =>
-        Door({ ...item, openDoor: callbacks.openDoor })
+        Door({
+          ...item,
+          openDoor: callbacks.openDoor,
+          theme: item.opened ? "disabled" : undefined,
+        })
       )
     ),
 
@@ -56,6 +62,8 @@ export const App: Component<AppProps> = (props) => {
       count: select.count,
       setCount: callbacks.setCount,
     }),
-    Statistics({ data: select.statistics })
+    Statistics({
+      data: select.statistics[select.count.toString() as Mode],
+    })
   );
 };

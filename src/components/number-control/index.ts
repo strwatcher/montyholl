@@ -17,7 +17,7 @@ export const NumberControl: Component<NumberControlProps> = (props) => {
       text: "-",
       onClick: props.decrease,
     }),
-    Label({ text: props.value.toString(), theme: "big" }),
+    Label({ text: props.value.toString(), theme: "h" }),
     Button({
       theme: "big",
       text: "+",
