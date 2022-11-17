@@ -43,7 +43,6 @@ export const App: Component<AppProps> = (props) => {
     status: store.getState().status.message,
     statistics: store.getState().statistics.data,
   };
-
   return VerticalLayout(
     { theme: "app" },
     HorizontalLayout(

@@ -82,13 +82,13 @@ export class StatisticsModule extends StoreModule<StatisticsState> {
     const changeGamesPercent = percent(changeGames / games);
     const notChangeGames = games - changeGames;
     const notChangeGamesPercent = percent(notChangeGames / games);
-    const changeWinsPercent = percent(changeWins / wins);
+    const changeWinsPercent = percent(changeWins / changeGames);
     const notChangeWins = wins - changeWins;
-    const notChangeWinsPercent = percent(notChangeWins / wins);
+    const notChangeWinsPercent = percent(notChangeWins / notChangeGames);
     const changeLooses = changeGames - changeWins;
     const changeLoosesPercent = percent(changeLooses / changeGames);
     const notChangeLooses = looses - changeLooses;
-    const notChangeLoosesPercent = percent(notChangeLooses / looses);
+    const notChangeLoosesPercent = percent(notChangeLooses / notChangeGames);
     this.setState({
       data: {
         ...this.getState().data,

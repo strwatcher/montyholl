@@ -1,7 +1,7 @@
 import { StoreModule } from "../module";
 
 export interface GameStatusState {
-  message: "Вы выиграли" | "Вы проиграли" | "";
+  message: "Вы выиграли!" | "Вы проиграли!" | "";
 }
 
 export class GameStatusModule extends StoreModule<GameStatusState> {
@@ -13,13 +13,13 @@ export class GameStatusModule extends StoreModule<GameStatusState> {
 
   win() {
     this.setState({
-      message: "Вы выиграли",
+      message: "Вы выиграли!",
     });
   }
 
   lose() {
     this.setState({
-      message: "Вы проиграли",
+      message: "Вы проиграли!",
     });
   }
 
