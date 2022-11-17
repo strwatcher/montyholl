@@ -64,6 +64,13 @@
   gap: 20px;
 }
 
+.Vlayout_app {
+  justify-content: space-around;
+  min-height: calc(100vh - 60px);
+  padding: 30px;
+  box-sizing: border-box;
+}
+
 .Vlayout_column {
   width: auto;
   align-items: flex-start;

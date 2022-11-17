@@ -3,7 +3,7 @@ import { Div } from "../../../riot/components/div";
 import { joinClasses } from "../../../utils/joinClasses";
 
 export type VerticalLayoutProps = CommonProps & {
-  theme?: "centered" | "gapped" | "column";
+  theme?: "centered" | "gapped" | "column" | "app";
 };
 export const VerticalLayout: Component<VerticalLayoutProps> = (
   props,

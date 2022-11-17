@@ -45,7 +45,7 @@ export const App: Component<AppProps> = (props) => {
   };
 
   return VerticalLayout(
-    { theme: "gapped" },
+    { theme: "app" },
     HorizontalLayout(
       { theme: "full" },
       ...select.items.map((item) =>
