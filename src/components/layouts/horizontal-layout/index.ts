@@ -3,7 +3,7 @@ import { Div } from "../../../riot/components/div";
 import { joinClasses } from "../../../utils/joinClasses";
 
 export type HorizontalLayoutProps = CommonProps & {
-  theme?: "gapped-centered" | "gapped-centered-l" | "full";
+  theme?: "gapped-centered" | "gapped-centered-l" | "full" | "row";
 };
 
 export const HorizontalLayout: Component<HorizontalLayoutProps> = (

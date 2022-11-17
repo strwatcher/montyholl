@@ -42,6 +42,12 @@
   justify-content: center;
 }
 
+.Hlayout_row {
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
 .Vlayout {
   display: flex;
   align-items: center;
@@ -52,6 +58,11 @@
 
 .Vlayout_gapped {
   gap: 20px;
+}
+
+.Vlayout_column {
+  width: auto;
+  align-items: flex-start;
 }
 
 .Button {
