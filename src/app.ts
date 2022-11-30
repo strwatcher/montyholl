@@ -6,7 +6,7 @@ import { VerticalLayout } from "./components/layouts/vertical-layout";
 import { Statistics } from "./components/statistics";
 import { CommonProps, Component } from "./riot/component";
 import { Store } from "./store";
-import { Modes as Mode } from "./store/statistics";
+import { Mode as Mode } from "./store/statistics";
 
 export type AppProps = {
   store: Store;

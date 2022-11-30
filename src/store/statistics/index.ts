@@ -2,7 +2,7 @@ import { percent } from "../../utils/percent";
 import { GameInfo } from "../doors";
 import { StoreModule } from "../module";
 
-export type Modes = "3" | "4" | "5";
+export type Mode = "3" | "4" | "5";
 
 export interface Statistics {
   games: number;
@@ -30,7 +30,7 @@ export interface Statistics {
 
 export interface StatisticsState {
   data: {
-    [P in Modes]: Statistics
+    [P in Mode]: Statistics
   };
 }
 
@@ -69,7 +69,7 @@ export class StatisticsModule extends StoreModule<StatisticsState> {
     };
   }
 
-  registerGame(info: GameInfo, mode: "3" | "4" | "5") {
+  registerGame(info: GameInfo, mode: Mode) {
     const games = this.getState().data[mode].games + 1;
     const wins = this.getState().data[mode].wins + +info.win;
     const changeGames = this.getState().data[mode].changeGames + +info.change;
